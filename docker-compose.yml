@@ -1,0 +1,95 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: device-analytics-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: device_analytics
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: device-analytics-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: device-analytics-api
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/device_analytics
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      DEBUG: "False"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    command: >
+      sh -c "
+      python -m alembic upgrade head 2>/dev/null || true &&
+      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+      "
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: device-analytics-worker
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/device_analytics
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/app
+    command: celery -A app.tasks.celery_app worker --loglevel=info
+
+  flower:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: device-analytics-flower
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+      - worker
+    command: celery -A app.tasks.celery_app flower
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    name: device-analytics-network
