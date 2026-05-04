@@ -28,8 +28,6 @@
 - [START_HERE.md](START_HERE.md) - короткий маршрут по проекту
 - [QUICKSTART.md](QUICKSTART.md) - быстрый запуск
 - [ARCHITECTURE.md](ARCHITECTURE.md) - архитектура и компоненты
-- [TECHNICAL_REQUIREMENTS.md](TECHNICAL_REQUIREMENTS.md) - сверка с ТЗ
-- [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md) - результаты нагрузочного тестирования
 - [DEPLOYMENT.md](DEPLOYMENT.md) - запуск и эксплуатация
 - [FILE_STRUCTURE.md](FILE_STRUCTURE.md) - структура каталогов
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - краткая сводка проекта
