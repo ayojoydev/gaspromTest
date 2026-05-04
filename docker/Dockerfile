@@ -14,11 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Builder stage
 FROM base as builder
 
-RUN pip install poetry
+COPY requirements.txt ./
 
-COPY pyproject.toml poetry.lock* ./
-
-RUN poetry install --no-interaction --no-ansi
+RUN pip install -r requirements.txt
 
 # Runtime stage
 FROM base
