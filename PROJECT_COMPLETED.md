@@ -17,7 +17,6 @@
 - [README.md](README.md)
 - [QUICKSTART.md](QUICKSTART.md)
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)
-- [TECHNICAL_REQUIREMENTS.md](TECHNICAL_REQUIREMENTS.md)
 
 ## Базовый запуск
 
@@ -25,7 +24,3 @@
 docker compose up -d
 docker compose exec api python scripts/init_db.py
 ```
-
-## Что дальше
-
-Если цель сейчас в аккуратной передаче проекта, обычно достаточно приложить ссылку на репозиторий, указать способ запуска и приложить [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md).

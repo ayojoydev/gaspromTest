@@ -38,6 +38,4 @@
 - [TECHNICAL_REQUIREMENTS.md](TECHNICAL_REQUIREMENTS.md)
 - [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md)
 
-## Итоговое состояние
 
-Проект оформлен как рабочий сервисный шаблон для тестового задания. Документация приведена к единому виду и подходит как отправная точка для сдачи или дальнейшей доработки.
