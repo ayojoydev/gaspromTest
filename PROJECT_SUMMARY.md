@@ -36,7 +36,7 @@
 - [QUICKSTART.md](QUICKSTART.md)
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [TECHNICAL_REQUIREMENTS.md](TECHNICAL_REQUIREMENTS.md)
-- [LOAD_TEST_RESULTS.md](LOAD_TEST_RESULTS.md)
+- [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md)
 
 ## Итоговое состояние
 

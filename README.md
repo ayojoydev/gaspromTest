@@ -29,7 +29,7 @@
 - [QUICKSTART.md](QUICKSTART.md) - быстрый запуск
 - [ARCHITECTURE.md](ARCHITECTURE.md) - архитектура и компоненты
 - [TECHNICAL_REQUIREMENTS.md](TECHNICAL_REQUIREMENTS.md) - сверка с ТЗ
-- [LOAD_TEST_RESULTS.md](LOAD_TEST_RESULTS.md) - результаты нагрузочного тестирования
+- [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md) - результаты нагрузочного тестирования
 - [DEPLOYMENT.md](DEPLOYMENT.md) - запуск и эксплуатация
 - [FILE_STRUCTURE.md](FILE_STRUCTURE.md) - структура каталогов
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - краткая сводка проекта
@@ -38,7 +38,7 @@
 
 ```bash
 docker-compose up -d
-docker-compose exec api python init_db.py
+docker compose exec api python scripts/init_db.py
 ```
 
 После запуска будут доступны:
@@ -80,10 +80,10 @@ Locust-сценарий находится в [tests/locustfile.py](tests/locust
 Запуск:
 
 ```bash
-locust -f tests/locustfile.py --host=http://localhost:8000
+bash scripts/run_load_test.sh
 ```
 
-Сводка по зафиксированным результатам находится в [LOAD_TEST_RESULTS.md](LOAD_TEST_RESULTS.md).
+Сводка по зафиксированным результатам находится в [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md).
 
 ## Важное замечание
 

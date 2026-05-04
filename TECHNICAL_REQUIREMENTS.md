@@ -106,7 +106,7 @@
 Файлы:
 
 - [tests/locustfile.py](tests/locustfile.py)
-- [LOAD_TEST_RESULTS.md](LOAD_TEST_RESULTS.md)
+- [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md)
 
 ### Docker и Docker Compose
 

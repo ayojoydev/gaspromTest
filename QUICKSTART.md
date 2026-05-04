@@ -4,7 +4,7 @@
 
 ```bash
 docker-compose up -d
-docker-compose exec api python init_db.py
+docker compose exec api python scripts/init_db.py
 ```
 
 Проверка:
@@ -32,5 +32,5 @@ celery -A app.tasks.celery_app worker --loglevel=info
 ## Нагрузочное тестирование
 
 ```bash
-locust -f tests/locustfile.py --host=http://localhost:8000
+bash scripts/run_load_test.sh
 ```

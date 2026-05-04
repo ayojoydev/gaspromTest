@@ -1,76 +1,78 @@
 #!/usr/bin/env python
 """
-Initialization script for Device Analytics Service
+Initialization script for Device Analytics Service.
 """
 
-import os
+import random
 import sys
 from pathlib import Path
 
-# Add the project root to the path
-project_root = Path(__file__).parent
+project_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(project_root))
 
-def init_database():
-    """Initialize the database"""
+
+def init_database() -> bool:
+    """Initialize database tables."""
     print("Initializing database...")
     from app.db.database import init_db
+
     try:
         init_db()
-        print("✓ Database initialized successfully")
-    except Exception as e:
-        print(f"✗ Error initializing database: {e}")
+        print("Database initialized successfully")
+        return True
+    except Exception as exc:
+        print(f"Error initializing database: {exc}")
         return False
-    return True
 
-def create_test_data():
-    """Create test data"""
+
+def create_test_data() -> bool:
+    """Create seed data for local testing."""
     print("\nCreating test data...")
     from app.db.database import SessionLocal
-    from app.services.data_service import UserService, DeviceService, ReadingService
-    import random
-    
+    from app.services.data_service import DeviceService, ReadingService, UserService
+
     db = SessionLocal()
     try:
-        # Create test users
         for user_id in [1001, 1002, 1003]:
             UserService.create_user(db, user_id)
-            print(f"✓ Created user {user_id}")
-        
-        # Create test devices
+            print(f"Created user {user_id}")
+
         devices_config = [
             (1001, [101, 102, 103]),
             (1002, [201, 202]),
             (1003, [301]),
         ]
-        
+
         for user_id, device_ids in devices_config:
             for device_id in device_ids:
                 DeviceService.create_device(db, device_id, user_id)
-                print(f"✓ Created device {device_id} for user {user_id}")
-        
-        # Add test readings
+                print(f"Created device {device_id} for user {user_id}")
+
         print("\nAdding test readings...")
         for user_id, device_ids in devices_config:
             for device_id in device_ids:
-                for i in range(100):
-                    x = random.uniform(-100, 100)
-                    y = random.uniform(-100, 100)
-                    z = random.uniform(-100, 100)
-                    ReadingService.add_reading(db, device_id, user_id, x, y, z)
-                print(f"✓ Added 100 readings for device {device_id}")
-        
-        print("\n✓ Test data created successfully")
+                for _ in range(100):
+                    ReadingService.add_reading(
+                        db,
+                        device_id,
+                        user_id,
+                        random.uniform(-100, 100),
+                        random.uniform(-100, 100),
+                        random.uniform(-100, 100),
+                    )
+                print(f"Added 100 readings for device {device_id}")
+
+        print("\nTest data created successfully")
         return True
-        
-    except Exception as e:
-        print(f"✗ Error creating test data: {e}")
+    except Exception as exc:
+        print(f"Error creating test data: {exc}")
         return False
     finally:
         db.close()
 
-def print_info():
-    """Print information about the service"""
+
+def print_info() -> None:
+    """Print service URLs and common commands."""
     print("\n" + "=" * 60)
     print("Device Analytics Service - Initialization Complete")
     print("=" * 60)
@@ -80,33 +82,30 @@ def print_info():
     print("  - ReDoc:      http://localhost:8000/redoc")
     print("  - Flower:     http://localhost:5555")
     print("\nUseful commands:")
-    print("  - Run tests:  locust -f tests/locustfile.py --host=http://localhost:8000")
-    print("  - View logs:  docker-compose logs -f")
+    print("  - Run tests:  bash scripts/run_load_test.sh")
+    print("  - View logs:  docker compose logs -f")
     print("  - Health:     curl http://localhost:8000/api/health")
     print("\nRun examples:")
-    print("  - python examples.py")
+    print("  - python scripts/examples.py")
     print("=" * 60 + "\n")
 
-def main():
-    """Main initialization function"""
+
+def main() -> int:
     print("\n" + "=" * 60)
     print("Device Analytics Service - Initialization")
     print("=" * 60 + "\n")
-    
-    # Initialize database
+
     if not init_database():
-        print("\nInitialization failed!")
+        print("\nInitialization failed")
         return 1
-    
-    # Create test data
+
     if not create_test_data():
         print("\nInitialization completed with warnings")
         return 1
-    
-    # Print info
+
     print_info()
-    
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

@@ -5,6 +5,9 @@
 ```text
 app/
 docker/
+docs/
+reports/
+scripts/
 tests/
 ```
 
@@ -45,6 +48,16 @@ requirements.txt
 ```text
 tests/
   locustfile.py
+
+reports/
+  load_tests/
+    LOAD_TEST_RESULTS.md
+    <timestamp>/
+      results_stats.csv
+      results_failures.csv
+      results_exceptions.csv
+      results_stats_history.csv
+      report.html
 ```
 
 ## Документация
@@ -56,8 +69,20 @@ QUICKSTART.md
 ARCHITECTURE.md
 DEPLOYMENT.md
 TECHNICAL_REQUIREMENTS.md
-LOAD_TEST_RESULTS.md
 PROJECT_SUMMARY.md
 PROJECT_COMPLETED.md
 INDEX.md
+```
+
+## Скрипты
+
+```text
+scripts/
+  init_db.py
+  examples.py
+  run_load_test.sh
+  start.sh
+  QUICKSTART_WINDOWS.sh
+  worker.py
+  celery_config.py
 ```

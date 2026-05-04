@@ -6,13 +6,13 @@
 2. Пройдите [QUICKSTART.md](QUICKSTART.md), чтобы поднять сервис локально.
 3. Проверьте [TECHNICAL_REQUIREMENTS.md](TECHNICAL_REQUIREMENTS.md), если нужна сверка с ТЗ.
 4. Посмотрите [ARCHITECTURE.md](ARCHITECTURE.md), если интересует устройство сервиса.
-5. Откройте [LOAD_TEST_RESULTS.md](LOAD_TEST_RESULTS.md), если нужны результаты нагрузки.
+5. Откройте [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md), если нужны результаты нагрузки.
 
 ## Минимальный сценарий запуска
 
 ```bash
 docker-compose up -d
-docker-compose exec api python init_db.py
+docker compose exec api python scripts/init_db.py
 ```
 
 После этого откройте `http://localhost:8000/docs`.

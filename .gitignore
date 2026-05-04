@@ -38,6 +38,8 @@ env/
 .coverage
 htmlcov/
 .tox/
+reports/load_tests/*
+!reports/load_tests/.gitkeep
 
 # Environment
 .env

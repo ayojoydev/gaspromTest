@@ -6,7 +6,7 @@
 
 ```bash
 docker-compose up -d
-docker-compose exec api python init_db.py
+docker compose exec api python scripts/init_db.py
 ```
 
 Проверка:

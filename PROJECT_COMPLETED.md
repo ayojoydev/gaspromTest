@@ -22,10 +22,10 @@
 ## Базовый запуск
 
 ```bash
-docker-compose up -d
-docker-compose exec api python init_db.py
+docker compose up -d
+docker compose exec api python scripts/init_db.py
 ```
 
 ## Что дальше
 
-Если цель сейчас в аккуратной передаче проекта, обычно достаточно приложить ссылку на репозиторий, указать способ запуска и приложить [LOAD_TEST_RESULTS.md](LOAD_TEST_RESULTS.md).
+Если цель сейчас в аккуратной передаче проекта, обычно достаточно приложить ссылку на репозиторий, указать способ запуска и приложить [reports/load_tests/LOAD_TEST_RESULTS.md](reports/load_tests/LOAD_TEST_RESULTS.md).
